@@ -35,10 +35,10 @@ bool combination(int *level, int *tries) {
         std::cin >> guess_b;
         std::cin >> guess_c;
 
-        // check whether the user has guessed the combinations correctly
         guess_sum = guess_a + guess_b + guess_c;
         guess_product = guess_a * guess_b * guess_c;
 
+        // check whether the user has guessed the combinations correctly
         // allow retry if 'tries' is greater than 0
         if (guess_sum != code_sum || guess_product != code_product) {
             --*tries;
