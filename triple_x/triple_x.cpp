@@ -11,7 +11,7 @@ int rand_num_gen(int *level) {
 
 bool combination(int *level, int *tries) {
     /*
-    * the combination game, return false if "tries" is 0
+    * the combination game, return false if 'tries' is 0
     * return true if the user guesses the combinations correctly
     */
     // setup the secret combinations with random numbers
@@ -39,7 +39,7 @@ bool combination(int *level, int *tries) {
         guess_sum = guess_a + guess_b + guess_c;
         guess_product = guess_a * guess_b * guess_c;
 
-        // allow retry if tries is greater than 0
+        // allow retry if 'tries' is greater than 0
         if (guess_sum != code_sum || guess_product != code_product) {
             --*tries;
             std::cout << "Combinations incorrect - Remaining chances: " << *tries << "\n" << std::endl;
