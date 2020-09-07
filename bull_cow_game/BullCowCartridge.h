@@ -16,6 +16,9 @@ class BULLCOWGAME_API UBullCowCartridge : public UCartridge
 	virtual void OnInput(const FString& Input) override;
 	void InitGame();
 	void RestartGame();
+	// TODO: make 'Guess' a smart pointer
+	void ProcessGame(const FString Guess);
+	bool IsIsogram(const FString Guess) const;
 
 	// Your declarations go below!
 	private:
