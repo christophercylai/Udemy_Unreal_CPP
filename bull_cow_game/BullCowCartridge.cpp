@@ -27,10 +27,26 @@ void UBullCowCartridge::OnInput(const FString& Input)
 }
 
 
+void UBullCowCartridge::GetValidWords() {
+    /*
+    Helper function that initialize ValidWords with words that are 4 to 8 characters long
+    */
+    for (FString Word : ListOfWords) {
+        if (Word.Len() < 4 || Word.Len() > 9) {
+            ValidWords.Emplace(Word);
+        }
+    }
+}
+
+
 void UBullCowCartridge::InitGame() {
     /*
     Helper function that initialize the bull cow game
     */
+    // if statement to stop running GetValidWords again
+    if (ValidWords.Num() > 0) {
+        GetValidWords();
+    }
     HiddenWord = ListOfWords[rand() % ListOfWords.Num()];
     bGameOver = false;
     LifeCounts = 3;

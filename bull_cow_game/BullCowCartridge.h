@@ -19,10 +19,12 @@ class BULLCOWGAME_API UBullCowCartridge : public UCartridge
 	// TODO: make 'Guess' a smart pointer
 	void ProcessGame(const FString Guess);
 	bool IsIsogram(const FString Guess) const;
+	void GetValidWords();
 
 	// Your declarations go below!
 	private:
     FString HiddenWord = TEXT("");
 	int32 LifeCounts = 0;
 	bool bGameOver = false;
+	TArray<FString> ValidWords = {};
 };
