@@ -1,5 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 #include "BullCowCartridge.h"
+#include "HiddenWordList.h"
 
 
 void UBullCowCartridge::BeginPlay()
@@ -30,7 +31,7 @@ void UBullCowCartridge::InitGame() {
     /*
     Helper function that initialize the bull cow game
     */
-    HiddenWord = TEXT("cake");
+    HiddenWord = ListOfWords[rand() % ListOfWords.Num()];
     bGameOver = false;
     LifeCounts = 3;
     PrintLine(TEXT("Hi There, welcome to the Bull Cows!"));
@@ -42,13 +43,13 @@ bool UBullCowCartridge::IsIsogram(const FString Guess) const {
     /*
     Helper function: Prevents the player to enter a word that has duplicated letters
     */
-    // Looping through 'Guess' and compare each character against
-    //   others characters that have lesser position values
-    for (int32 full_len = Guess.Len()-1; full_len >= 0; --full_len) {
+    // Looping through 'Guess' in reverse order and compare each character against
+    // others characters that have lesser position values
+    for (int32 full_len = Guess.Len()-1; full_len >= 1; --full_len) {  // full_len >= 1: not checking the last char
         for (int32 part_len = full_len-1; part_len >= 0; --part_len) {
             if (Guess[full_len] == Guess[part_len]) {
-                PrintLine(TEXT("'%s' has duplicate letters '%c'"), *Guess, Guess[part_len]);
-                PrintLine(TEXT("The word cannot have duplicate letters"));
+                PrintLine(TEXT("'%s' has duplicate letters '%c'."), *Guess, Guess[part_len]);
+                PrintLine(TEXT("The word cannot have duplicate letters."));
                 return false;
             }
         }
@@ -65,14 +66,14 @@ void UBullCowCartridge::ProcessGame(const FString Guess) {
     }
     // Prevents the player to enter a word that is longer then 'HiddenWord'
     if (Guess.Len() != HiddenWord.Len()) {  // Input is whatever the user typed and then hit return
-        PrintLine(TEXT("'%s' has %i letters.\nThe number of letters should be %i"), *Guess, Guess.Len(), HiddenWord.Len());
+        PrintLine(TEXT("'%s' has %i letters.\nThe number of letters should be %i."), *Guess, Guess.Len(), HiddenWord.Len());
         goto EXIT;
     }
     if (! IsIsogram(Guess)) {
         goto EXIT;
     }
     --LifeCounts;
-    PrintLine(TEXT("Your guess is incorrect"));
+    PrintLine(TEXT("Your guess '%s' is incorrect."), *Guess);
     if (LifeCounts <= 0) {
         LifeCounts = 0;
         PrintLine(TEXT("Game Over! The answer is '%s'. \n"), *HiddenWord);
@@ -89,5 +90,5 @@ void UBullCowCartridge::RestartGame() {
     Helper function that prompts the user to restart the game
     */
     bGameOver = true;
-    PrintLine(TEXT("Hit 'Enter' to restart the game..."));
+    PrintLine(TEXT("Hit 'Enter' to restart the game ..."));
 }
